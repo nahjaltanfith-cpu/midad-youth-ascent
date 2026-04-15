@@ -1,5 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
@@ -76,37 +76,12 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const location = useLocation();
-  const isHome = location.pathname === "/";
-  const [startupState, setStartupState] = useState<"checking" | "loading" | "ready">(
-    isHome ? "checking" : "ready",
+  const [showStartupLoading, setShowStartupLoading] = useState(
+    () => location.pathname === "/",
   );
 
-  useEffect(() => {
-    if (!isHome) {
-      setStartupState("ready");
-      return;
-    }
-
-    const hasLoaded = sessionStorage.getItem("midad_loaded");
-    if (hasLoaded) {
-      setStartupState("ready");
-      return;
-    }
-
-    setStartupState("loading");
-  }, [isHome]);
-
-  const handleLoadingComplete = () => {
-    sessionStorage.setItem("midad_loaded", "1");
-    setStartupState("ready");
-  };
-
-  if (isHome && startupState !== "ready") {
-    return startupState === "loading" ? (
-      <LoadingScreen onComplete={handleLoadingComplete} />
-    ) : (
-      <div className="min-h-screen bg-background" aria-hidden="true" />
-    );
+  if (showStartupLoading) {
+    return <LoadingScreen onComplete={() => setShowStartupLoading(false)} />;
   }
 
   return (
