@@ -1,8 +1,10 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import headerGovernance from "@/assets/header-governance.jpg";
+import { useI18n } from "@/lib/i18n";
 
 export default function GovernanceSection() {
   const pdfUrl = "/docs/bylaws.pdf";
+  const { t } = useI18n();
 
   return (
     <section className="relative overflow-hidden">
@@ -15,9 +17,9 @@ export default function GovernanceSection() {
         <div className="container mx-auto px-4 relative z-10 text-center">
           <AnimateOnScroll>
             <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/[0.1] backdrop-blur-sm text-xs font-bold tracking-[0.15em] text-white/90 uppercase mb-5">
-              الشفافية والمصداقية
+              {t("governance.badge")}
             </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">الحوكمة</h1>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">{t("governance.title")}</h1>
             <div className="w-20 h-[3px] mx-auto rounded-full gradient-gold" />
           </AnimateOnScroll>
         </div>
@@ -36,11 +38,9 @@ export default function GovernanceSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="m9 15 2 2 4-4" />
                     </svg>
                   </div>
-                  <h2 className="text-3xl font-bold text-foreground">اللائحة الأساسية</h2>
+                  <h2 className="text-3xl font-bold text-foreground">{t("governance.docTitle")}</h2>
                 </div>
-                <p className="text-muted-foreground max-w-2xl mx-auto">
-                  يمكنك الاطلاع على اللائحة الأساسية للجمعية وتصفحها مباشرة من داخل الصفحة.
-                </p>
+                <p className="text-muted-foreground max-w-2xl mx-auto">{t("governance.docDesc")}</p>
               </div>
             </AnimateOnScroll>
 
@@ -70,7 +70,7 @@ export default function GovernanceSection() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="m7 10 5 5 5-5" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 15V3" />
                   </svg>
-                  تحميل اللائحة الأساسية
+                  {t("governance.download")}
                 </a>
                 <a
                   href={pdfUrl}
@@ -78,7 +78,7 @@ export default function GovernanceSection() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-card text-foreground font-semibold shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                 >
-                  فتح الملف في نافذة جديدة ↗
+                  {t("governance.openNew")}
                 </a>
               </div>
             </AnimateOnScroll>
