@@ -1,5 +1,5 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts, useLocation } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { I18nProvider, useI18n } from "@/lib/i18n";
 import Navbar from "@/components/Navbar";
 import PageTransition from "@/components/PageTransition";
