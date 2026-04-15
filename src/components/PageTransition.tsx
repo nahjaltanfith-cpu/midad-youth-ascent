@@ -1,13 +1,15 @@
 import { useLocation } from "@tanstack/react-router";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, useRef, type ReactNode } from "react";
 
 export default function PageTransition({ children }: { children: ReactNode }) {
   const location = useLocation();
   const [displayChildren, setDisplayChildren] = useState(children);
   const [stage, setStage] = useState<"enter" | "exit">("enter");
+  const prevPathRef = useRef(location.pathname);
 
   useEffect(() => {
-    if (children !== displayChildren) {
+    if (location.pathname !== prevPathRef.current) {
+      prevPathRef.current = location.pathname;
       setStage("exit");
       const timer = setTimeout(() => {
         setDisplayChildren(children);
@@ -15,6 +17,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
         window.scrollTo({ top: 0 });
       }, 250);
       return () => clearTimeout(timer);
+    } else {
+      setDisplayChildren(children);
     }
   }, [children, location.pathname]);
 
