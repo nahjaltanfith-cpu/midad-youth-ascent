@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import ContactSection, { Footer } from "@/components/ContactSection";
+import ContactSection from "@/components/ContactSection";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
@@ -17,7 +17,6 @@ function ContactPage() {
   return (
     <div className="min-h-screen pt-20">
       <ContactSection />
-      <Footer />
     </div>
   );
 }
