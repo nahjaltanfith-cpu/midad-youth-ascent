@@ -1,6 +1,7 @@
 import { AnimateOnScroll } from "@/hooks/useScrollAnimation";
 import VisionSection from "@/components/VisionSection";
 import headerAbout from "@/assets/header-about.jpg";
+import { useI18n } from "@/lib/i18n";
 
 const goals = [
   {
@@ -45,12 +46,12 @@ const assemblyMembers = [
   "بسام حميد الوادعي",
 ];
 
-function PageHeader({ badge, title, subtitle }: { badge: string; title: string; subtitle?: string }) {
+function PageHeader({ badge, title, subtitle, bgImage }: { badge: string; title: string; subtitle?: string; bgImage?: string }) {
   return (
     <div className="relative overflow-hidden py-32 mb-8">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${headerAbout})` }}
+        style={{ backgroundImage: `url(${bgImage || headerAbout})` }}
       />
       <div className="absolute inset-0 bg-gradient-to-l from-[#071e25]/85 via-[#1C6C81]/70 to-[#2A8DA8]/50" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_oklch(0.72_0.14_75_/_10%)_0%,_transparent_50%)]" />
@@ -73,12 +74,23 @@ function PageHeader({ badge, title, subtitle }: { badge: string; title: string; 
 }
 
 export default function AboutSection() {
+  const { t } = useI18n();
+
+  const boardMembers = [
+    { name: "خالد سالم العواشز", nameEn: "Khaled Salem Al-Awashez", role: t("about.boardChair"), color: "from-[#1C6C81] to-[#2A8DA8]" },
+    { name: "عبدالله عبدالمحسن الدوسري", nameEn: "Abdullah Al-Dosari", role: t("about.boardVice"), color: "from-[#D4A533] to-[#E8C84B]" },
+    { name: "أحمد إبراهيم الزيداني", nameEn: "Ahmed Al-Zaidani", role: t("about.boardMember"), color: "from-[#1C6C81] to-[#2A8DA8]" },
+    { name: "عمر محمد أبو ملحة", nameEn: "Omar Abu Malha", role: t("about.boardMember"), color: "from-[#D4A533] to-[#E8C84B]" },
+    { name: "سعد إبراهيم آل مهدي", nameEn: "Saad Al Mahdi", role: t("about.boardMember"), color: "from-[#1C6C81] to-[#2A8DA8]" },
+  ];
+
   return (
     <section className="relative overflow-hidden">
       <PageHeader
-        badge="تعرف علينا"
-        title="عن الجمعية"
-        subtitle="جمعية أهلية مقرها أبها بمنطقة عسير، تحت إشراف وزارة الموارد البشرية والتنمية الاجتماعية"
+        badge={t("about.badge")}
+        title={t("about.title")}
+        subtitle={t("about.subtitle")}
+        bgImage={headerAbout}
       />
 
       <div className="py-20 bg-background relative">
@@ -89,10 +101,10 @@ export default function AboutSection() {
           <AnimateOnScroll>
             <div className="flex flex-wrap justify-center gap-4 mb-20">
               <span className="px-5 py-2.5 rounded-full bg-card border border-border text-xs font-medium text-muted-foreground shadow-card hover:shadow-elegant hover:border-primary/15 transition-all duration-400">
-                التصنيف: المجموعة الرابعة - الخدمات الاجتماعية
+                {t("about.classTag1")}
               </span>
               <span className="px-5 py-2.5 rounded-full bg-card border border-border text-xs font-medium text-muted-foreground shadow-card hover:shadow-elegant hover:border-primary/15 transition-all duration-400">
-                منظمات تقدم خدمات إنسانية واجتماعية
+                {t("about.classTag2")}
               </span>
             </div>
           </AnimateOnScroll>
@@ -105,9 +117,9 @@ export default function AboutSection() {
             <AnimateOnScroll>
               <div className="text-center mb-14">
                 <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/8 text-xs font-bold tracking-[0.15em] text-primary uppercase mb-4">
-                  ✦ أهدافنا
+                  {t("about.goalsTag")}
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground">الأهداف الاستراتيجية</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground">{t("about.goalsTitle")}</h2>
               </div>
             </AnimateOnScroll>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -120,8 +132,8 @@ export default function AboutSection() {
                       </svg>
                     </div>
                     <div>
-                      <h4 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{g.title}</h4>
-                      <p className="text-sm text-muted-foreground leading-relaxed">{g.desc}</p>
+                      <h4 className="font-bold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">{t(`about.g${i + 1}Title`)}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{t(`about.g${i + 1}Desc`)}</p>
                     </div>
                   </div>
                 </AnimateOnScroll>
@@ -134,9 +146,9 @@ export default function AboutSection() {
             <AnimateOnScroll>
               <div className="text-center mb-14">
                 <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-gold/8 text-xs font-bold tracking-[0.15em] text-gold uppercase mb-4">
-                  القيادة
+                  {t("about.boardTag")}
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground">مجلس الإدارة</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground">{t("about.boardTitle")}</h2>
               </div>
             </AnimateOnScroll>
             <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
@@ -165,9 +177,9 @@ export default function AboutSection() {
             <AnimateOnScroll>
               <div className="text-center mb-14">
                 <span className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-primary/8 text-xs font-bold tracking-[0.15em] text-primary uppercase mb-4">
-                  الأعضاء المؤسسون
+                  {t("about.assemblyTag")}
                 </span>
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground">أعضاء الجمعية العمومية</h2>
+                <h2 className="text-3xl md:text-4xl font-bold text-foreground">{t("about.assemblyTitle")}</h2>
               </div>
             </AnimateOnScroll>
             <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
