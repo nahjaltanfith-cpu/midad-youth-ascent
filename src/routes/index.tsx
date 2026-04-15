@@ -1,26 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState, useCallback } from "react";
+import LoadingScreen from "@/components/LoadingScreen";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import VisionSection from "@/components/VisionSection";
+import AboutSection from "@/components/AboutSection";
+import GovernanceSection from "@/components/GovernanceSection";
+import BeneficiariesSection from "@/components/BeneficiariesSection";
+import ContactSection, { Footer } from "@/components/ContactSection";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. For sites with multiple pages (About, Services, Contact, etc.),
-// create separate route files (about.tsx, services.tsx, contact.tsx) — don't put all pages in this file.
-function PlaceholderIndex() {
+function Index() {
+  const [loading, setLoading] = useState(true);
+  const handleComplete = useCallback(() => setLoading(false), []);
+
+  if (loading) {
+    return <LoadingScreen onComplete={handleComplete} />;
+  }
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="/placeholder.svg"
-        alt="Your app will live here!"
-      />
+    <div className="min-h-screen">
+      <Navbar />
+      <HeroSection />
+      <VisionSection />
+      <AboutSection />
+      <GovernanceSection />
+      <BeneficiariesSection />
+      <ContactSection />
+      <Footer />
     </div>
   );
-}
-
-function Index() {
-  return <PlaceholderIndex />;
 }
